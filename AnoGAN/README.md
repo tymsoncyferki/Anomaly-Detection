@@ -30,11 +30,21 @@ h5py
 
 ## Usage for training and test a dataset
 
-### MNIST
-
-Please run below in order on the CPU.
-
 ### Your own dataset
+
+#### PCAM
+
+Download files from [google drive](https://drive.google.com/drive/folders/1gHou49cA1s5vua2V5L98Lt8TiWA3FrKB)
+Put them in 'your_own_dataset_dir_name/pcam' directory
+Everywhere insted
+'''
+python script.py "your_own_dataset_dir_name/train_dir_name"
+'''
+run
+'''
+python script.py "." -f
+'''
+with other essential arguments such as number of epochs
 
 Please run below in order.
 
