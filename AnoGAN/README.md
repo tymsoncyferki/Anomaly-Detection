@@ -25,7 +25,7 @@ Matplotlib
 Numpy  
 pandas  
 Pillow  
-scikit-learn
+scikit-learn<br>
 h5py
 
 ## Usage for training and test a dataset
