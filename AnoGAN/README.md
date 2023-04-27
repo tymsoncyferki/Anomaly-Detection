@@ -26,7 +26,7 @@ Numpy
 pandas  
 Pillow  
 scikit-learn<br>
-h5py
+h5py (for PCAM)
 
 ## Usage for training and test a dataset
 
@@ -34,9 +34,9 @@ h5py
 
 #### PCAM
 
-Download files from [google drive](https://drive.google.com/drive/folders/1gHou49cA1s5vua2V5L98Lt8TiWA3FrKB)<br>
-Put them in 'your_own_dataset_dir_name/pcam' directory<br>
-Everywhere insted
+Download files from [Google Drive](https://drive.google.com/drive/folders/1gHou49cA1s5vua2V5L98Lt8TiWA3FrKB).<br>
+Put them in 'your_own_dataset_dir_name/pcam' directory.<br>
+Everywhere instead
 ```
 python script.py "your_own_dataset_dir_name/train_dir_name"
 ```
@@ -44,7 +44,7 @@ run
 ```
 python script.py "." -f
 ```
-with other essential arguments such as number of epochs
+with other essential arguments such as number of epochs.
 
 Please run below in order.
 
