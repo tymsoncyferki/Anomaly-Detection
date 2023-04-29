@@ -5,14 +5,22 @@ import torch
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 from torchvision.datasets import PCAM
+from torch.utils.data import Subset
 
 from fanogan.train_wgangp import train_wgangp
+
+
+def getSubset(dataset, target):
+    print(f'Getting label = {target} indices')
+    indices_to_keep = [i for i, (_, label) in enumerate(dataset) if label == target]
+    return Subset(dataset, indices_to_keep)
 
 
 def main(opt):
     if type(opt.seed) is int:
         torch.manual_seed(opt.seed)
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")
 
     pipeline = [transforms.Resize([opt.img_size]*2),
                 transforms.RandomHorizontalFlip()]
@@ -23,8 +31,9 @@ def main(opt):
 
     transform = transforms.Compose(pipeline)
     dataset = PCAM(opt.train_root, split='train', transform=transform, download=opt.force_download)
-    train_dataloader = DataLoader(dataset, batch_size=opt.batch_size,
-                                  shuffle=True)
+    normal_dataset = getSubset(dataset, 0)
+    train_dataloader = DataLoader(normal_dataset, batch_size=opt.batch_size,
+                                  shuffle=False)
 
     sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
     from mvtec_ad.model import Generator, Discriminator

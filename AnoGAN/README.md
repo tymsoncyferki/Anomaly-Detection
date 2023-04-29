@@ -35,7 +35,8 @@ h5py (for PCAM)
 #### PCAM
 
 Download files from [Google Drive](https://drive.google.com/drive/folders/1gHou49cA1s5vua2V5L98Lt8TiWA3FrKB).<br>
-Put them in 'your_own_dataset_dir_name/pcam' directory.<br>
+Put them in `your_own_dataset_dir_name/pcam` directory.<br>
+
 Everywhere instead
 ```
 python script.py "your_own_dataset_dir_name/train_dir_name"

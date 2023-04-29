@@ -5,26 +5,35 @@ import torch
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 from torchvision.datasets import PCAM
+from torch.utils.data import Subset
 
 from fanogan.train_encoder_izif import train_encoder_izif
+
+
+def getSubset(dataset, target):
+    print(f'Getting label={target} indices...')
+    indices_to_keep = [i for i, (_, label) in enumerate(dataset) if label == target]
+    return Subset(dataset, indices_to_keep)
 
 
 def main(opt):
     if type(opt.seed) is int:
         torch.manual_seed(opt.seed)
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")
 
-    pipeline = [transforms.Resize([opt.img_size]*2),
+    pipeline = [transforms.Resize([opt.img_size] * 2),
                 transforms.RandomHorizontalFlip()]
     if opt.channels == 1:
         pipeline.append(transforms.Grayscale())
     pipeline.extend([transforms.ToTensor(),
-                     transforms.Normalize([0.5]*opt.channels, [0.5]*opt.channels)])
+                     transforms.Normalize([0.5] * opt.channels, [0.5] * opt.channels)])
 
     transform = transforms.Compose(pipeline)
     dataset = PCAM(opt.train_root, split='train', transform=transform, download=opt.force_download)
-    train_dataloader = DataLoader(dataset, batch_size=opt.batch_size,
-                                  shuffle=True)
+    normal_dataset = getSubset(dataset, 0)
+    train_dataloader = DataLoader(normal_dataset, batch_size=opt.batch_size,
+                                  shuffle=False)
 
     sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
     from mvtec_ad.model import Generator, Discriminator, Encoder
@@ -44,9 +53,9 @@ Licensed under MIT
 (https://github.com/eriklindernoren/PyTorch-GAN/blob/master/LICENSE)
 """
 
-
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument("train_root", type=str,
                         help="root name of your dataset in train mode")
