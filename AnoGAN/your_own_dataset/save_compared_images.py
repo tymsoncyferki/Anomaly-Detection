@@ -6,14 +6,16 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import PCAM
 
-from fanogan.save_compared_images import save_compared_images
+sys.path.append("C:/Users/tymek/PycharmProjects/anogan")
 
+from fanogan.save_compared_images import save_compared_images
 
 def main(opt):
     # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     device = torch.device("cpu")
 
-    pipeline = [transforms.Resize([opt.img_size]*2),
+    pipeline = [transforms.CenterCrop(32),
+        transforms.Resize([opt.img_size]*2),
                 transforms.RandomHorizontalFlip()]
     if opt.channels == 1:
         pipeline.append(transforms.Grayscale())

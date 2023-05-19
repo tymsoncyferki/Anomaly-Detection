@@ -6,19 +6,22 @@ from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 from torchvision.datasets import PCAM
 
+sys.path.append("C:/Users/tymek/PycharmProjects/anogan")
+
 from fanogan.test_anomaly_detection import test_anomaly_detection
 
 
 def main(opt):
-    # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    device = torch.device("cpu")
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cpu")
 
-    pipeline = [transforms.Resize([opt.img_size]*2),
+    pipeline = [transforms.CenterCrop(32),
+                transforms.Resize([opt.img_size] * 2),
                 transforms.RandomHorizontalFlip()]
     if opt.channels == 1:
         pipeline.append(transforms.Grayscale())
     pipeline.extend([transforms.ToTensor(),
-                     transforms.Normalize([0.5]*opt.channels, [0.5]*opt.channels)])
+                     transforms.Normalize([0.5] * opt.channels, [0.5] * opt.channels)])
 
     transform = transforms.Compose(pipeline)
     dataset = PCAM(opt.test_root, split='test', transform=transform, download=opt.force_download)
@@ -42,9 +45,9 @@ Licensed under MIT
 (https://github.com/eriklindernoren/PyTorch-GAN/blob/master/LICENSE)
 """
 
-
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument("test_root", type=str,
                         help="root name of your dataset in test mode")
