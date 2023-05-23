@@ -159,5 +159,5 @@ class ResnetBlock(nn.Module):
 
 def load_stain_net():
         model = StainNet()
-        model.load_state_dict(torch.load(os.path.join(src, "checkpoints/camelyon16_dataset/StainNet-Public-centerUni_layer3_ch32.pth"), map_location=torch.device('cpu')))
+        model.load_state_dict(torch.load("StainNet-Public-centerUni_layer3_ch32.pth"), map_location=torch.device('cpu'))
         return model
