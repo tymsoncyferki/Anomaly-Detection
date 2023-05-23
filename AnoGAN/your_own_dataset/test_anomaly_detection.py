@@ -6,6 +6,9 @@ from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 from torchvision.datasets import PCAM
 
+import staintools
+from stainnet.models import load_stain_net
+
 sys.path.append("C:/Users/tymek/PycharmProjects/anogan")
 
 from fanogan.test_anomaly_detection import test_anomaly_detection

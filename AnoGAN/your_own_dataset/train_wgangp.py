@@ -7,7 +7,10 @@ import torchvision.transforms as transforms
 from torchvision.datasets import PCAM
 from torch.utils.data import Subset
 
-sys.path.append("C:/Users/tymek/PycharmProjects/anogan")  # Change for your absolute path
+import staintools
+from stainnet.models import load_stain_net
+
+sys.path.append("C:/Users/tymek/PycharmProjects/anogan")
 
 from fanogan.train_wgangp import train_wgangp
 

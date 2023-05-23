@@ -6,6 +6,9 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import PCAM
 
+import staintools
+from stainnet.models import load_stain_net
+
 sys.path.append("C:/Users/tymek/PycharmProjects/anogan")
 
 from fanogan.save_compared_images import save_compared_images

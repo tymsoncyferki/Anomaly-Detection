@@ -7,6 +7,9 @@ import torchvision.transforms as transforms
 from torchvision.datasets import PCAM
 from torch.utils.data import Subset
 
+import staintools
+from stainnet.models import load_stain_net
+
 sys.path.append("C:/Users/tymek/PycharmProjects/anogan")
 
 from fanogan.train_encoder_izif import train_encoder_izif
@@ -25,13 +28,16 @@ def main(opt):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     # device = torch.device("cpu")
 
+    stain_normalization = load_stain_net()
+
     pipeline = [transforms.CenterCrop(32),
         transforms.Resize([opt.img_size] * 2),
                 transforms.RandomHorizontalFlip()]
     if opt.channels == 1:
         pipeline.append(transforms.Grayscale())
     pipeline.extend([transforms.ToTensor(),
-                     transforms.Normalize([0.5] * opt.channels, [0.5] * opt.channels)])
+                     transforms.Normalize([0.5] * opt.channels, [0.5] * opt.channels),
+                     stain_normalization])
 
     transform = transforms.Compose(pipeline)
     dataset = PCAM(opt.train_root, split='train', transform=transform, download=opt.force_download)
