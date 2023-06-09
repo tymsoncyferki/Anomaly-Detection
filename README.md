@@ -1,5 +1,5 @@
 # Anomaly detection in histopathology
-Repository for Anomaly Detection department of Case Studies II at Warsaw University of Technology. Our task was to detect anomalies in histopathological data from PCAM dataset. Our approach was to treat cancer as anomaly, thus the problem turned into detecting tumour tissues. 
+Repository for Anomaly Detection department of Case Studies at Warsaw University of Technology. Our task was to detect anomalies in histopathological data from PCAM dataset. Our approach was to treat cancer as anomaly, thus the problem turned into detecting tumour tissues. 
 
 ## Authors
 [Michał Mazuryk](https://github.com/mazurykm),
